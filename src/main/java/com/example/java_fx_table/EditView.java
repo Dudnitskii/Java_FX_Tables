@@ -75,11 +75,9 @@ public class EditView extends VBox {
     private void save(ActionEvent event) {
         Item item = new Item(tfName.getText(), tfSurname.getText(), tfDate.getText(), tfPost.getText());
         if (str == "Add") {
-            itemModel.data.add(item);
+            viewModel.addData(item);
         }else {
-            itemModel.data.remove(index);
-            itemModel.data.add(index, item);
-            System.out.println("Edit");
+           viewModel.editData(item, index);
         }
         stage1.close();
     }

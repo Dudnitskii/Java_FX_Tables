@@ -1,10 +1,10 @@
 package com.example.java_fx_table;
 
 public class Item {
-    public String name;
-    public String surname;
-    public String date;
-    public String post;
+    private String name;
+    private String surname;
+    private String date;
+    private String post;
 
     public Item(String name, String surname, String date, String post) {
         this.name = name;
@@ -43,10 +43,5 @@ public class Item {
 
     public void setPost(String post) {
         this.post = post;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

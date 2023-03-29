@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class ItemViewModel {
     public ObservableList<Item> editData(ObservableList<Item> dataTable, int index, Stage stage){
-        createWindow(dataTable.get(index),index);
+        createEditMenu(dataTable.get(index),index);
         return dataTable;
     }
     public ObservableList<Item> deleteData(ObservableList<Item> dataTable, int index){
@@ -14,18 +14,18 @@ public class ItemViewModel {
         return dataTable;
     }
     public ObservableList<Item> addData(ObservableList<Item> dataTable, Stage stage){
-        createWindow();
+        createAddMenu();
         return dataTable;
     }
 
-    public void createWindow(Item item, int index){
+    public void createEditMenu(Item item, int index){
         Stage stage1 = new Stage();
         EditView view = new EditView(stage1, item,index);
         stage1.setScene(new Scene(view));
         stage1.setTitle("Edit data");
         stage1.show();
     }
-    public void createWindow(){
+    public void createAddMenu(){
         Stage stage1 = new Stage();
         EditView view = new EditView(stage1);
         stage1.setScene(new Scene(view));
