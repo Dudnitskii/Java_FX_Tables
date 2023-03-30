@@ -26,7 +26,6 @@ public class ItemView extends VBox {
     private Stage stage = null;
 
     private final ItemViewModel viewModel = new ItemViewModel();
-    private final ItemModel itemModel = new ItemModel();
     ObservableList<Item> dataTable = FXCollections.observableArrayList();
     public ItemView(Stage stage){
         this.stage = stage;
@@ -36,28 +35,24 @@ public class ItemView extends VBox {
         VBox newBox = new VBox();
         newBox.setAlignment(Pos.CENTER);
 
-        Item item = new Item("Dima","Dudnitskii", "19.07.2002","Student");
-        dataTable.add(item);
-        tbItems.setItems(dataTable);
-
         tbItems.getColumns().addAll(columnName, columnSurname, columnDate, columnPost);
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnPost.setCellValueFactory(new PropertyValueFactory<>("post"));
         columnName.setMinWidth(150);
         columnSurname.setMinWidth(200);
         columnDate.setMinWidth(50);
         columnPost.setMinWidth(150);
-        columnSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        columnPost.setCellValueFactory(new PropertyValueFactory<>("post"));
 
         ButtonBar btnbar = new ButtonBar();
         btnbar.setPadding( new Insets(20.0d) );
-        btnbar.getButtons().addAll( btnRefresh, btnDelete, btnEdit, btnAdd);
+        btnbar.getButtons().addAll(btnRefresh, btnDelete, btnEdit, btnAdd);
 
         btnAdd.setOnAction(this::addItem);
         btnDelete.setOnAction(this::deleteItem);
         btnEdit.setOnAction(this::editItem);
-        btnRefresh.setOnAction(this::setDataTable);
+        btnRefresh.setOnAction(this::setItems);
 
         btnDelete.disableProperty().bind(tbItems.getSelectionModel().selectedItemProperty().isNull());
         btnEdit.disableProperty().bind(tbItems.getSelectionModel().selectedItemProperty().isNull());
@@ -65,20 +60,19 @@ public class ItemView extends VBox {
         newBox.getChildren().add(tbItems);
         VBox.setVgrow( newBox, Priority.ALWAYS );
         this.getChildren().addAll(newBox, new Separator(), btnbar);
-        itemModel.data = dataTable;
     }
 
-    public void setDataTable(ActionEvent event){
-        tbItems.setItems(itemModel.data);
+    public void setItems(ActionEvent event){
+        tbItems.setItems(viewModel.setItems());
     }
+
     public void deleteItem(ActionEvent event){
-        itemModel.data = viewModel.deleteData( itemModel.data,tbItems.getSelectionModel().getFocusedIndex());
+        viewModel.deleteData(tbItems.getSelectionModel().getFocusedIndex());
     }
     public void editItem(ActionEvent event){
-        itemModel.data = viewModel.editData( itemModel.data, tbItems.getSelectionModel().getFocusedIndex(), stage);
+       viewModel.editData( tbItems.getSelectionModel().getFocusedIndex());
     }
     public void addItem(ActionEvent event){
-
-        itemModel.data = viewModel.addData( itemModel.data, stage);
+        viewModel.addData();
     }
 }

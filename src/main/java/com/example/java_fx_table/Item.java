@@ -1,6 +1,8 @@
 package com.example.java_fx_table;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String name;
     private String surname;
     private String date;

@@ -1,10 +1,8 @@
 package com.example.java_fx_table;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -25,7 +23,6 @@ public class EditView extends VBox {
     private String str;
     private int index;
     private final EditViewModel viewModel = new EditViewModel();
-    private final ItemModel itemModel = new ItemModel();
     public EditView(Stage stage){
         this.stage1 = stage;
         editTableMenu();

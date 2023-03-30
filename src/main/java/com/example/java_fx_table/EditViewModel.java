@@ -1,13 +1,17 @@
 package com.example.java_fx_table;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 public class EditViewModel {
-
     private final ItemModel itemModel = new ItemModel();
     public void editData(Item item, int index){
-        itemModel.data.remove(index);
-        itemModel.data.add(index, item);
+        ObservableList<Item> dataTable = FXCollections.observableArrayList();
+        dataTable = itemModel.inputDataFromFile();
+        dataTable.remove(index);
+        dataTable.add(index, item);
+        itemModel.outputDataInFile(dataTable);
     }
 
     public void back(Stage stage){
@@ -15,6 +19,9 @@ public class EditViewModel {
     }
 
     public void addData(Item item){
-        itemModel.data.add(item);
+        ObservableList<Item> dataTable = FXCollections.observableArrayList();
+        dataTable = itemModel.inputDataFromFile();
+        dataTable.add(item);
+        itemModel.outputDataInFile(dataTable);
     }
 }
